@@ -223,3 +223,13 @@ class _MyAppState extends State<MyApp> {
                                     ],
                                   ),
                                 ),
+
+                                 const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                  indent: 5,
+                                  endIndent: 5,
+                                ),
+                              ],
+                            ),
+                          ),
