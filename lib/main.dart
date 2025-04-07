@@ -525,3 +525,105 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
             ),
+
+              Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(CupertinoIcons.check_mark_circled,
+                    color: CupertinoColors.systemYellow),
+                onPressed: () {
+                  setState(() {
+                    filterMode = "checklist";
+                    applyFilter();
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(CupertinoIcons.list_bullet,
+                    color: CupertinoColors.systemYellow),
+                onPressed: () {
+                  setState(() {
+                    filterMode = "all";
+                    applyFilter();
+                  });
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: CupertinoSearchTextField(
+                placeholder: 'Search',
+                onChanged: (value) {
+                  setState(() {
+                    filteredList = todolist
+                        .where((item) => item['task']
+                        .toLowerCase()
+                        .contains(value.toLowerCase()))
+                        .toList();
+                  });
+                },
+              ),
+            ),
+            _buildHeader(context),
+            _buildDivider(context),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController, // Use the scroll controller
+                itemCount: filteredList.length,
+                itemBuilder: (context, index) {
+                  final item = filteredList[index];
+                  return GestureDetector(
+                    onDoubleTap: () {
+                      _updateTaskDialog(item); // Handle double tap to update task
+                    },
+                    child: Dismissible(
+                      key: UniqueKey(),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20),
+                        color: CupertinoColors.destructiveRed,
+                        child: const Icon(CupertinoIcons.delete_simple,
+                            color: Colors.white),
+                      ),
+                      confirmDismiss: (_) async {
+                        bool confirm = false;
+                        await showCupertinoDialog(
+                          context: context,
+                          builder: (context) => CupertinoAlertDialog(
+                            title: Text("Delete Task",
+                                style: TextStyle(fontSize: titleFontSize)),
+                            content: Text("Remove '${item['task']}'?",
+                                style: TextStyle(fontSize: taskFontSize)),
+                            actions: [
+                              CupertinoDialogAction(
+                                onPressed: () {
+                                  confirm = true;
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("Yes",
+                                    style: TextStyle(
+                                        color: CupertinoColors.systemRed,
+                                        fontSize: taskFontSize)),
+                              ),
+                              CupertinoDialogAction(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text("No",
+                                    style: TextStyle(fontSize: taskFontSize)),
+                              )
+                            ],
+                          ),
+                        );
+                        return confirm;
+                      },
