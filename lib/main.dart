@@ -431,3 +431,97 @@ class _MyAppState extends State<MyApp> {
                               ],
                             ),
                           ),
+
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                            indent: 5,
+                            endIndent: 5,
+                          ),
+                          const SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                const SizedBox(height: 15),
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      ClipOval(
+                                        child: Image.asset(
+                                          'images/rachelle.jpg',
+                                          height: 50,
+                                          width: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Flexible(
+                                        child: const Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Macalino, Rachelle Anne", overflow: TextOverflow.ellipsis,),
+                                            Text(
+                                              "Back-End Developer",
+                                              style: TextStyle(color: CupertinoColors.systemGrey2),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                  indent: 5,
+                                  endIndent: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                            indent: 5,
+                            endIndent: 5,
+                          ),
+                        ],
+                      ),
+
+
+
+
+
+
+
+                      actions: [
+                        CupertinoButton(
+                          child: const Text(
+                            "CLose",
+                            style: TextStyle(color: CupertinoColors.destructiveRed),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(CupertinoIcons.pin, color: CupertinoColors.systemYellow),
+                onPressed: () {
+                  setState(() {
+                    filterMode = "pinned";
+                    applyFilter();
+                  });
+                },
+              ),
+            ),
