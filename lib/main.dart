@@ -323,3 +323,111 @@ class _MyAppState extends State<MyApp> {
                                     ],
                                   ),
                                 ),
+
+                                const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                  indent: 5,
+                                  endIndent: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                            indent: 5,
+                            endIndent: 5,
+                          ),
+                          const SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                const SizedBox(height: 15),
+                                Flexible( // Added Flexible
+                                  child: Row(
+                                    children: [
+                                      ClipOval(
+                                        child: Image.asset(
+                                          'images/joel.jpg',
+                                          height: 50,
+                                          width: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Flexible(
+                                        child: const Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Dizon, Joel", overflow: TextOverflow.ellipsis,),
+                                            Text(
+                                              "Software Engineer",
+                                              style: TextStyle(color: CupertinoColors.systemGrey2),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                  indent: 5,
+                                  endIndent: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                            indent: 5,
+                            endIndent: 5,
+                          ),
+                          const SizedBox(height: 15),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                const SizedBox(height: 15),
+                                Flexible( // Added Flexible
+                                  child: Row(
+                                    children: [
+                                      ClipOval(
+                                        child: Image.asset(
+                                          'images/jomel.jpg',
+                                          height: 50,
+                                          width: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Flexible(
+                                        child: const Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Simbillo, Jomel", overflow: TextOverflow.ellipsis,),
+                                            Text(
+                                              "Cyber Security",
+                                              style: TextStyle(color: CupertinoColors.systemGrey2),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  thickness: 1,
+                                  indent: 5,
+                                  endIndent: 5,
+                                ),
+                              ],
+                            ),
+                          ),
