@@ -627,3 +627,170 @@ class _MyAppState extends State<MyApp> {
                         );
                         return confirm;
                       },
+
+                      onDismissed: (_) {
+                        setState(() {
+                          todolist.removeWhere(
+                                  (element) => element['task'] == item['task']);
+                          applyFilter();
+                          box.put('todo', todolist);
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: CupertinoColors.systemGroupedBackground,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item['task'],
+                                      style: TextStyle(
+                                        fontSize: taskFontSize,
+                                        color: Colors.black,
+                                        decoration: (item['status'] ?? false)
+                                            ? TextDecoration.lineThrough
+                                            : TextDecoration.none,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      softWrap: true,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      formatDateTime(item['createdAt']),
+                                      style: TextStyle(
+                                        fontSize: dateFontSize,
+                                        color: CupertinoColors.inactiveGray,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    const Divider(color: CupertinoColors.systemFill),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    child: Icon(
+                                      item['checklist'] == true
+                                          ? CupertinoIcons.check_mark_circled_solid
+                                          : CupertinoIcons.check_mark_circled,
+                                      color: item['checklist'] == true
+                                          ? CupertinoColors.activeGreen
+                                          : CupertinoColors.inactiveGray,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        item['checklist'] = !(item['checklist'] ?? false);
+                                        int mainIndex = todolist.indexWhere((task) => task['task'] == item['task']);
+                                        if (mainIndex != -1) todolist[mainIndex]['checklist'] = item['checklist'];
+                                        box.put('todo', todolist);
+                                      });
+                                    },
+                                  ),
+                                  CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    child: Icon(
+                                      item['pinned'] == true ? CupertinoIcons.pin_fill : CupertinoIcons.pin,
+                                      color: item['pinned'] == true
+                                          ? CupertinoColors.systemYellow
+                                          : CupertinoColors.inactiveGray,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        item['pinned'] = !(item['pinned'] ?? false);
+                                        int mainIndex = todolist.indexWhere((task) => task['task'] == item['task']);
+                                        if (mainIndex != -1) todolist[mainIndex]['pinned'] = item['pinned'];
+                                        box.put('todo', todolist);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              color: CupertinoColors.systemFill.withOpacity(0.2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("${todolist.length} Notes", style: TextStyle(fontSize: titleFontSize)),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(CupertinoIcons.square_pencil, color: CupertinoColors.systemYellow),
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) {
+                          return CupertinoAlertDialog(
+                            title: Text("Add Task", style: TextStyle(fontSize: titleFontSize)),
+                            content: Padding(
+                              padding: const EdgeInsets.only(top: 30, bottom: 10),
+                              child: CupertinoTextField(
+                                placeholder: 'Add to Do',
+                                controller: _addTask,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text("Cancel", style: TextStyle(color: CupertinoColors.destructiveRed, fontSize: taskFontSize)),
+                                onPressed: () {
+                                  _addTask.clear();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              CupertinoDialogAction(
+                                child: Text("Add", style: TextStyle(color: CupertinoColors.activeGreen, fontSize: taskFontSize)),
+                                onPressed: () {
+                                  final createdAt = DateTime.now();
+                                  setState(() {
+                                    todolist.add({
+                                      "task": _addTask.text,
+                                      "status": false,
+                                      "pinned": false,
+                                      "checklist": false,
+                                      "createdAt": createdAt,
+                                    });
+                                    applyFilter();
+                                    box.put('todo', todolist);
+                                  });
+                                  _addTask.clear();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
