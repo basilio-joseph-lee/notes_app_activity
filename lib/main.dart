@@ -602,7 +602,7 @@ class _MyAppState extends State<MyApp> {
                         await showCupertinoDialog(
                           context: context,
                           builder: (context) => CupertinoAlertDialog(
-                            title: Text("Delete Task",
+                            title: Text("Delete Notes",
                                 style: TextStyle(fontSize: titleFontSize)),
                             content: Text("Remove '${item['task']}'?",
                                 style: TextStyle(fontSize: taskFontSize)),
@@ -744,7 +744,7 @@ class _MyAppState extends State<MyApp> {
                         context: context,
                         builder: (context) {
                           return CupertinoAlertDialog(
-                            title: Text("Add Task", style: TextStyle(fontSize: titleFontSize)),
+                            title: Text("Add Notes", style: TextStyle(fontSize: titleFontSize)),
                             content: Padding(
                               padding: const EdgeInsets.only(top: 30, bottom: 10),
                               child: CupertinoTextField(
